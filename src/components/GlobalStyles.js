@@ -8,8 +8,6 @@ export default createGlobalStyle`
 body {
     margin: 0;
     font-size: 112.5%;
-    width: 100vw;
-    height: 100vh;
     background: #f0faff;
 }
 :root {

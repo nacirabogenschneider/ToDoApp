@@ -3,6 +3,7 @@ import styled from "styled-components/macro";
 import ListItem from "./ListItem";
 import { FiPlus } from "react-icons/fi";
 import Form from "./Form";
+import Button from "@material-ui/core/Button";
 
 import AppButton from "./AppButton";
 const initialToDos = [
@@ -68,9 +69,13 @@ function List(props) {
             />
           </div>
         ))}
-        <AppButton onClick={() => setIsVisible(true)}>
+        <Button
+          variant="contained"
+          style={{ backgroundColor: "skyblue", width: 348, marginTop: 10 }}
+          onClick={() => setIsVisible(true)}
+        >
           <FiPlus size={30} color="white" />
-        </AppButton>
+        </Button>
       </MainSection>
       {isVisible && (
         <Form

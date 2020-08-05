@@ -1,15 +1,37 @@
 import React, { useState } from "react";
 import styled from "styled-components/macro";
 import { FiCheck } from "react-icons/fi";
-import AppButton from "./AppButton";
+
 import uuid from "react-uuid";
 import { FiX } from "react-icons/fi";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import { withStyles } from "@material-ui/core/styles";
+import FormControl from "@material-ui/core/FormControl";
 
 function Form({ updateItems, item, setIsVisible }) {
   const [todo, setTodo] = useState(item);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [fileInputState, setFileInputState] = useState("");
   const [previewSource, setPreviewSource] = useState("");
+  const CssTextField = withStyles({
+    root: {
+      "& label.Mui-focused": {
+        color: "skyblue",
+      },
+      "& .MuiOutlinedInput-root": {
+        "& fieldset": {
+          borderColor: "grey",
+        },
+        "&:hover fieldset": {
+          borderColor: "skyblue",
+        },
+        "&.Mui-focused fieldset": {
+          borderColor: "skyblue",
+        },
+      },
+    },
+  })(TextField);
 
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
@@ -54,36 +76,48 @@ function Form({ updateItems, item, setIsVisible }) {
       >
         <FiX
           onClick={() => setIsVisible(false)}
-          size={30}
+          size={34}
           color="skyblue"
-          style={{ alignSelf: "flex-end" }}
+          style={{ alignSelf: "flex-end", paddingBottom: 10 }}
         />
-        <TitleInput
-          type="text"
-          name="title"
-          required
-          placeholder="Titel eintragen"
-          onChange={(e) => setTodo({ ...todo, title: e.target.value })}
-          defaultValue={item && item.title}
-        />
-        <DescriptionInput
-          required
-          defaultValue={item && item.description}
-          type="text"
-          name="description"
-          placeholder="Beschreibung eintragen"
-          onChange={(e) => setTodo({ ...todo, description: e.target.value })}
-        />
+        <FormControl>
+          <CssTextField
+            id="outlined-search"
+            label="Titel"
+            type="search"
+            variant="outlined"
+            value={item && item.title}
+            onChange={(e) => setTodo({ ...todo, title: e.target.value })}
+            style={{ borderColor: "skyblue", marginBottom: 20 }}
+          />
+        </FormControl>
+        <FormControl>
+          <CssTextField
+            id="outlined-search"
+            label="Beschreibung"
+            type="search"
+            multiline
+            rows={4}
+            variant="outlined"
+            value={item.description}
+            onChange={(e) => setTodo({ ...todo, description: e.target.value })}
+            style={{ borderColor: "skyblue", marginBottom: 20 }}
+          />
+        </FormControl>
         <FileInput
           type="file"
           name="file"
-          onSelect={(e) => handleFileSelect(e)}
+          onChange={(e) => handleFileSelect(e)}
           value={fileInputState}
           accept="image/*, .pdf"
         />
-        <AppButton onClick={handleSubmit}>
+        <Button
+          variant="contained"
+          style={{ backgroundColor: "skyblue" }}
+          onClick={handleSubmit}
+        >
           <FiCheck size={30} color="white" />
-        </AppButton>
+        </Button>
       </form>
       {previewSource && (
         <PreviewWrapper>
@@ -107,39 +141,18 @@ const MainForm = styled.form`
   background: #f0faff;
 `;
 
-const TitleInput = styled.input`
-  height: 48px;
-  width: 348px;
-  font-size: 20px;
-  border-radius: 8px;
-  border-color: skyblue;
-  padding-left: 10px;
-`;
-const DescriptionInput = styled.input`
-  height: 200px;
-  font-size: 20px;
-  border-radius: 8px;
-  border-color: skyblue;
-  padding-left: 10px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-`;
 const FileInput = styled.input`
   height: 48px;
   font-size: 20px;
   border-color: skyblue;
 `;
-const H1 = styled.h1`
-  text-align: center;
-  font-family: verdana;
-  font-size: 30px;
-  color: skyblue;
-`;
+
 const PreviewWrapper = styled.div`
   width: 348px;
+  height: auto:
   max-width: 348px;
-  margin-left: 20px;
-  padding: 10px;
+  margin-top: 20px;
+  padding-bottom: 40px;
 `;
 const ImagePreview = styled.img`
   width: 100%;
