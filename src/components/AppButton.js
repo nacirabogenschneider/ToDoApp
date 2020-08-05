@@ -17,13 +17,12 @@ const Button = styled.button`
   background: none;
 `;
 
-const ButtonWrapper = styled.span`
+const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px;
+  margin-top: 10px;
   background: skyblue;
-  height: 50px;
   width: 348px;
   border-radius: 8px;
   box-shadow: 2px 3px 4px lightgrey;

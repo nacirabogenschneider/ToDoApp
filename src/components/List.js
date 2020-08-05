@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import ListItem from "./ListItem";
 import { FiPlus } from "react-icons/fi";
@@ -8,13 +8,13 @@ import AppButton from "./AppButton";
 const initialToDos = [
   {
     id: 1,
-    uri: "",
+    uris: [],
     title: "hier kommt der Titel des Todos rein",
     description: "Hier kommt meine erste Aufgabe rein",
   },
   {
     id: 2,
-    uri: "",
+    uris: [],
     title: "hier kommt der Titel des Todos rein",
     description: "Hier kommt meine erste Aufgabe rein",
   },
@@ -22,7 +22,7 @@ const initialToDos = [
     id: 3,
     title: "hier kommt der Titel des Todos rein",
     description: "Hier kommt meine erste Aufgabe rein",
-    uri: "",
+    uris: [],
   },
   {
     id: 4,
@@ -35,7 +35,7 @@ const initialToDos = [
     id: 5,
     title: "hier kommt der Titel des Todos rein",
     description: "Hier kommt meine erste Aufgabe rein",
-    uri: "",
+    uris: [],
   },
 ];
 
@@ -44,30 +44,34 @@ function List(props) {
   const [isVisible, setIsVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
 
+  useEffect(() => {
+    console.log("ITEMs", items);
+  }, [items]);
   function updateItems(item) {
     const isItem = items.some((curr) => curr.id === item.id);
     setSelectedItem({});
-
+    console.log(item);
     isItem
       ? setItems(items.map((i) => (i.id !== item.id ? i : item)))
       : setItems([...items, item]);
   }
   return (
-    <MainSection>
+    <>
       <Header>ToDo it</Header>
-      {items.map((item) => (
-        <div key={item.id}>
-          <ListItem
-            item={item}
-            setIsVisible={setIsVisible}
-            setSelectedItem={setSelectedItem}
-          />
-        </div>
-      ))}
-      <AppButton onClick={() => setIsVisible(true)}>
-        <FiPlus size={30} color="white" />
-      </AppButton>
-
+      <MainSection>
+        {items.map((item) => (
+          <div style={{ height: "100%" }} key={item.id}>
+            <ListItem
+              item={item}
+              setIsVisible={setIsVisible}
+              setSelectedItem={setSelectedItem}
+            />
+          </div>
+        ))}
+        <AppButton onClick={() => setIsVisible(true)}>
+          <FiPlus size={30} color="white" />
+        </AppButton>
+      </MainSection>
       {isVisible && (
         <Form
           updateItems={updateItems}
@@ -75,7 +79,7 @@ function List(props) {
           setIsVisible={setIsVisible}
         />
       )}
-    </MainSection>
+    </>
   );
 }
 
@@ -86,6 +90,7 @@ const MainSection = styled.section`
   flex-direction: column;
   align-items: center;
   width: 400px;
+  padding-top: 30px;
 `;
 const Header = styled.header`
   display: flex;
@@ -93,8 +98,8 @@ const Header = styled.header`
   width: 100vw;
   height: 60px;
   padding-top: 30px;
+  padding-bottom: 30px;
   color: skyblue;
-  background: #f0faff;
   font-size: 40px;
   font-family: verdana;
 `;
