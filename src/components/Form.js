@@ -83,7 +83,6 @@ function Form({ updateItems, item, setIsVisible }) {
             style={{
               display: "flex",
               flexDirection: "column",
-              height: "auto",
               width: 348,
             }}
             onSubmit={() => handleSubmit(values)}
@@ -135,7 +134,7 @@ function Form({ updateItems, item, setIsVisible }) {
               accept="image/*, .pdf"
               style={{ borderColor: "skyblue", marginTop: 20 }}
             />
-
+            {item.uris && <div>{item.uris}</div>}
             <div>{values.file}</div>
 
             <Button
@@ -159,7 +158,7 @@ const MainForm = styled.form`
   flex: 1;
   width: 100%;
   height: 100%;
-  padding-top: 70px;
+
   flex-direction: column;
   align-items: center;
   justify-content: center;

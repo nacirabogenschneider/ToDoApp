@@ -8,13 +8,15 @@ import Button from "@material-ui/core/Button";
 const initialToDos = [
   {
     id: 1,
-    uris: [],
+    uri:
+      "https://res.cloudinary.com/djd9snfcp/image/upload/v1596708422/james-day-5YWf-5hyZcw-unsplash_lchmpv.jpg",
     title: "hier kommt der Titel des Todos rein",
     description: "Hier kommt meine erste Aufgabe rein",
   },
   {
     id: 2,
-    uris: [],
+    uri:
+      "https://res.cloudinary.com/djd9snfcp/image/upload/v1596620563/stacy-marie-mLx1dc-AJ5k-unsplash_wsyxfs.jpg",
     title: "hier kommt der Titel des Todos rein",
     description: "Hier kommt meine erste Aufgabe rein",
   },
@@ -22,7 +24,8 @@ const initialToDos = [
     id: 3,
     title: "hier kommt der Titel des Todos rein",
     description: "Hier kommt meine erste Aufgabe rein",
-    uris: [],
+    uri:
+      "https://res.cloudinary.com/djd9snfcp/image/upload/v1596708422/james-day-5YWf-5hyZcw-unsplash_lchmpv.jpg",
   },
   {
     id: 4,
@@ -35,7 +38,8 @@ const initialToDos = [
     id: 5,
     title: "hier kommt der Titel des Todos rein",
     description: "Hier kommt meine erste Aufgabe rein",
-    uris: [],
+    uri:
+      "https://res.cloudinary.com/djd9snfcp/image/upload/v1596708625/olia-gozha-9A_peGrSbZc-unsplash_ktdtyo.jpg",
   },
 ];
 
@@ -58,24 +62,27 @@ function List(props) {
   return (
     <>
       <Header>ToDo it</Header>
-      <MainSection>
-        {items.map((item) => (
-          <div style={{ height: "100%" }} key={item.id}>
-            <ListItem
-              item={item}
-              setIsVisible={setIsVisible}
-              setSelectedItem={setSelectedItem}
-            />
-          </div>
-        ))}
-        <Button
-          variant="contained"
-          style={{ backgroundColor: "skyblue", width: 348, marginTop: 10 }}
-          onClick={() => setIsVisible(true)}
-        >
-          <FiPlus size={30} color="white" />
-        </Button>
-      </MainSection>
+      {!isVisible && (
+        <MainSection>
+          {items.map((item) => (
+            <div style={{ height: "100%" }} key={item.id}>
+              <ListItem
+                item={item}
+                setIsVisible={setIsVisible}
+                setSelectedItem={setSelectedItem}
+              />
+            </div>
+          ))}
+          <Button
+            variant="contained"
+            style={{ backgroundColor: "skyblue", width: 348, marginTop: 10 }}
+            onClick={() => setIsVisible(true)}
+          >
+            <FiPlus size={30} color="white" />
+          </Button>
+        </MainSection>
+      )}
+
       {isVisible && (
         <Form
           updateItems={updateItems}

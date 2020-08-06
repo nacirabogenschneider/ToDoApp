@@ -40,7 +40,7 @@ const ItemWrapper = styled.section`
   width: 348px;
   height: 48px;
   background-color: white;
-  border-radius: 8px;
+  border-radius: 5px;
   overflow: hidden;
   box-shadow: 2px 3px 4px lightgrey;
 `;
