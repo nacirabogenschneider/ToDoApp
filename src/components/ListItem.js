@@ -14,7 +14,6 @@ function ListItem({ item, setIsVisible, setSelectedItem }) {
       ) : (
         <Placeholder></Placeholder>
       )}
-
       <Text>{item.title}</Text>
       <div
         style={{
@@ -42,7 +41,7 @@ const ItemWrapper = styled.section`
   height: 48px;
   background-color: white;
   border-radius: 8px;
-
+  overflow: hidden;
   box-shadow: 2px 3px 4px lightgrey;
 `;
 
