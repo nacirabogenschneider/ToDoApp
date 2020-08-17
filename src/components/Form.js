@@ -19,7 +19,7 @@ function Form({ updateItems, item, setIsVisible }) {
       .required("Must enter a title"),
     description: Yup.string()
       .min(4, "Must have at least 4 characters")
-      .required("Must enter a title"),
+      .required("Must enter a description"),
     file: Yup.object().label("Datei"),
   });
 
@@ -158,10 +158,10 @@ const MainForm = styled.form`
   flex: 1;
   width: 100%;
   height: 100%;
-
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-top: 60px;
   background: #f0faff;
 `;
 

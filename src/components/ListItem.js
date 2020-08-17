@@ -1,11 +1,18 @@
 import React from "react";
 import styled from "styled-components/macro";
+import { saveToLocal } from "../utils/localStorage";
 
 import { FiTrash2, FiEdit2 } from "react-icons/fi";
-function ListItem({ item, setIsVisible, setSelectedItem }) {
+function ListItem({ item, items, setIsVisible, setSelectedItem, setItems }) {
   const handleClick = () => {
     setSelectedItem(item);
+
     setIsVisible(true);
+  };
+  const handleDeleteClick = () => {
+    const notDeletedItems = items.filter((i) => i.id !== item.id);
+    setItems(notDeletedItems);
+    saveToLocal("todos", notDeletedItems);
   };
   return (
     <ItemWrapper>
@@ -15,16 +22,10 @@ function ListItem({ item, setIsVisible, setSelectedItem }) {
         <Placeholder></Placeholder>
       )}
       <Text>{item.title}</Text>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-        }}
-      >
+      <IconWrapper>
         <FiEdit2 style={{ margin: 6 }} size={25} onClick={handleClick} />
-        <FiTrash2 style={{ margin: 6 }} size={25} />
-      </div>
+        <FiTrash2 style={{ margin: 6 }} size={25} onClick={handleDeleteClick} />
+      </IconWrapper>
     </ItemWrapper>
   );
 }
@@ -44,7 +45,11 @@ const ItemWrapper = styled.section`
   overflow: hidden;
   box-shadow: 2px 3px 4px lightgrey;
 `;
-
+const IconWrapper = styled.div`
+  display: flex;
+  flex-direction: rows;
+  justify-content: center;
+`;
 const Image = styled.img`
   height: 48px;
   width: 48px;

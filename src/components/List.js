@@ -1,63 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components/macro";
 import ListItem from "./ListItem";
 import { FiPlus } from "react-icons/fi";
 import Form from "./Form";
 import Button from "@material-ui/core/Button";
+import { loadFromLocal, saveToLocal } from "../utils/localStorage";
 
-const initialToDos = [
-  {
-    id: 1,
-    uri:
-      "https://res.cloudinary.com/djd9snfcp/image/upload/v1596708422/james-day-5YWf-5hyZcw-unsplash_lchmpv.jpg",
-    title: "hier kommt der Titel des Todos rein",
-    description: "Hier kommt meine erste Aufgabe rein",
-  },
-  {
-    id: 2,
-    uri:
-      "https://res.cloudinary.com/djd9snfcp/image/upload/v1596620563/stacy-marie-mLx1dc-AJ5k-unsplash_wsyxfs.jpg",
-    title: "hier kommt der Titel des Todos rein",
-    description: "Hier kommt meine erste Aufgabe rein",
-  },
-  {
-    id: 3,
-    title: "hier kommt der Titel des Todos rein",
-    description: "Hier kommt meine erste Aufgabe rein",
-    uri:
-      "https://res.cloudinary.com/djd9snfcp/image/upload/v1596708422/james-day-5YWf-5hyZcw-unsplash_lchmpv.jpg",
-  },
-  {
-    id: 4,
-    title: "hier kommt der Titel des Todos rein",
-    description: "Hier kommt meine erste Aufgabe rein",
-    uri:
-      "https://res.cloudinary.com/djd9snfcp/image/upload/v1596620563/stacy-marie-mLx1dc-AJ5k-unsplash_wsyxfs.jpg",
-  },
-  {
-    id: 5,
-    title: "hier kommt der Titel des Todos rein",
-    description: "Hier kommt meine erste Aufgabe rein",
-    uri:
-      "https://res.cloudinary.com/djd9snfcp/image/upload/v1596708625/olia-gozha-9A_peGrSbZc-unsplash_ktdtyo.jpg",
-  },
-];
-
-function List(props) {
-  const [items, setItems] = useState(initialToDos);
+function List() {
+  const [items, setItems] = useState(loadFromLocal("todos") || []);
   const [isVisible, setIsVisible] = useState(false);
-  const [selectedItem, setSelectedItem] = useState({});
+  const [selectedItem, setSelectedItem] = useState(
+    loadFromLocal("selectedTodo") || {}
+  );
 
-  useEffect(() => {
-    console.log("ITEMs", items);
-  }, [items]);
   function updateItems(item) {
     const isItem = items.some((curr) => curr.id === item.id);
     setSelectedItem({});
-    console.log(item);
+    saveToLocal("selectedTodo", {});
     isItem
-      ? setItems(items.map((i) => (i.id !== item.id ? i : item)))
+      ? setItems(items && items.map((i) => (i.id !== item.id ? i : item)))
       : setItems([...items, item]);
+    isItem
+      ? saveToLocal(
+          "todos",
+          items && items.map((i) => (i.id !== item.id ? i : item))
+        )
+      : saveToLocal("todos", [...items, item]);
   }
   return (
     <>
@@ -67,7 +35,9 @@ function List(props) {
           {items.map((item) => (
             <div style={{ height: "100%" }} key={item.id}>
               <ListItem
+                setItems={setItems}
                 item={item}
+                items={items}
                 setIsVisible={setIsVisible}
                 setSelectedItem={setSelectedItem}
               />
