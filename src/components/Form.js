@@ -140,7 +140,7 @@ function Form({ updateItems, item, setIsVisible }) {
 }
 
 export default Form;
-const MainForm = styled.form`
+const MainForm = styled.main`
   position: absolute;
   display: flex;
   flex: 1;
@@ -151,10 +151,4 @@ const MainForm = styled.form`
   justify-content: flex-start;
   padding-top: 60px;
   background: #f0faff;
-`;
-
-const FileInput = styled.input`
-  height: 48px;
-  font-size: 20px;
-  border-color: skyblue;
 `;
