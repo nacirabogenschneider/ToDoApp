@@ -125,18 +125,6 @@ function Form({ updateItems, item, setIsVisible }) {
             />
             <Error touched={touched.description} message={errors.description} />
 
-            <FileInput
-              type="file"
-              name="file"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.file}
-              accept="image/*, .pdf"
-              style={{ borderColor: "skyblue", marginTop: 20 }}
-            />
-            {item.uris && <div>{item.uris}</div>}
-            <div>{values.file}</div>
-
             <Button
               variant="contained"
               style={{ backgroundColor: "skyblue", marginTop: 20 }}
