@@ -14,6 +14,7 @@ function List() {
   );
 
   function updateItems(item) {
+    console.log(item);
     const isItem = items.some((curr) => curr.id === item.id);
     setSelectedItem({});
     saveToLocal("selectedTodo", {});
